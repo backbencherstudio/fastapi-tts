@@ -27,7 +27,9 @@ class TTSRequest(BaseModel):
 
 
 def clean_special_chars(text):
-    return re.sub(r'[^a-zA-Z0-9\s]', '', text)
+    # Replace newlines with pauses (e.g., period + space)
+    text = text.replace('\n', '. ')
+    return re.sub(r'[^a-zA-Z0-9\s\.\,\?\!\:\;]', '', text)
 
 
 @app.post("/tts/speak", response_class=StreamingResponse)
