@@ -9,7 +9,8 @@ import re
 import fitz
 import requests
 from gtts import gTTS
-import os
+
+
 app = FastAPI()
 
 # Enable CORS for all origins
