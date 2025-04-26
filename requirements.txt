@@ -2,3 +2,5 @@ fastapi
 TTS
 uvicorn
 pydub
+PyMuPDF
+gtts
