@@ -17,7 +17,7 @@ COPY requirements.txt .
 # Install Coqui TTS and FastAPI-related dependencies
 # RUN pip install --no-cache-dir git+https://github.com/coqui-ai/TTS.git fastapi uvicorn[standard]
 
-# RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . .
 
