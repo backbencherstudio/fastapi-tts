@@ -53,6 +53,13 @@ def download_file(url: str) -> bytes:
         raise Exception(
             f'Failed to download file. Status code: {response.status_code}')
 
+# hello world
+
+
+@app.get("/")
+async def root():
+    return {"message": "Hello World"}
+
 
 @app.post("/parse-pdf")
 async def parse_pdf(request: PDFRequest):
