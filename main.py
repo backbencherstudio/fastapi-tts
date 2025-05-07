@@ -6,10 +6,9 @@ from pydantic import BaseModel
 # import soundfile as sf
 import io
 import re
-import fitz
 import requests
 from gtts import gTTS
-
+from pdfparse import parse_pdf
 
 app = FastAPI()
 
@@ -53,8 +52,6 @@ def download_file(url: str) -> bytes:
         raise Exception(
             f'Failed to download file. Status code: {response.status_code}')
 
-# hello world
-
 
 @app.get("/")
 async def root():
@@ -62,17 +59,11 @@ async def root():
 
 
 @app.post("/parse-pdf")
-async def parse_pdf(request: PDFRequest):
+async def parse_pdf_api(request: PDFRequest):
     try:
         file_bytes = download_file(request.url)
 
-        pdf = fitz.open(stream=file_bytes, filetype="pdf")
-        text = ""
-
-        for page in pdf:
-            text += page.get_text()
-
-        pdf.close()
+        text = parse_pdf(file_bytes)
 
         return JSONResponse(content={"content": text})
 
@@ -102,7 +93,7 @@ async def speak(request: TTSRequest):
         tts = gTTS(text, lang='en')
         buffer = io.BytesIO()
         tts.write_to_fp(buffer)
-        buffer.seek(0)  # Rewind to the beginning of the buffer
+        buffer.seek(0)
 
         return StreamingResponse(buffer, media_type="audio/mp3")
 

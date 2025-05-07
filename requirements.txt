@@ -4,3 +4,7 @@ uvicorn
 pydub
 PyMuPDF
 gtts
+google-cloud-texttospeech
+
+pytesseract
+PIL
