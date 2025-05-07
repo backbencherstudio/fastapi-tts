@@ -7,4 +7,4 @@ gtts
 google-cloud-texttospeech
 
 pytesseract
-PIL
+Pillow
