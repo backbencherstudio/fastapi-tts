@@ -4,7 +4,7 @@ import fitz
 # import io
 
 
-async def parse_pdf(file_bytes):
+def parse_pdf(file_bytes):
     '''Parse a PDF file and return the text as a string'''
     pdf = fitz.open(stream=file_bytes, filetype="pdf")
 
@@ -57,5 +57,5 @@ def test(file_bytes):
 if __name__ == "__main__":
     with open("example.pdf", "rb") as f:
         file_bytes = f.read()
-    test(file_bytes)
+    # test(file_bytes)
     print(parse_pdf(file_bytes))
