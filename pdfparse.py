@@ -1,22 +1,37 @@
 import fitz
-from PIL import Image
-import pytesseract
-import io
+# from PIL import Image
+# import pytesseract
+# import io
 
-def parse_pdf(file_bytes):
+
+async def parse_pdf(file_bytes):
     '''Parse a PDF file and return the text as a string'''
     pdf = fitz.open(stream=file_bytes, filetype="pdf")
 
     text = ""
 
     for page in pdf:
-        pix = page.get_pixmap(dpi=300)
-        img = Image.open(io.BytesIO(pix.tobytes("png")))
-        text += pytesseract.image_to_string(img)
+        text += page.get_text()
 
     pdf.close()
 
     return text
+
+
+# def parse_pdf(file_bytes):
+#     '''Parse a PDF file and return the text as a string'''
+#     pdf = fitz.open(stream=file_bytes, filetype="pdf")
+
+#     text = ""
+
+#     for page in pdf:
+#         pix = page.get_pixmap(dpi=300)
+#         img = Image.open(io.BytesIO(pix.tobytes("png")))
+#         text += pytesseract.image_to_string(img)
+
+#     pdf.close()
+
+#     return text
 
 
 def test(file_bytes):
@@ -37,6 +52,7 @@ def test(file_bytes):
             #     print(
             #         f"Annotation on page {page_index + 1}: {annot.info.get('title', '')}")
             #     print(f"Alt text: {annot.info.get('content', '')}")
+
 
 if __name__ == "__main__":
     with open("example.pdf", "rb") as f:
